@@ -39,6 +39,9 @@
 			$sorting++;
 	?>
 
+if(isset($_GET['sort'])){
+		$nextSort = (($_GET['sort'] == ASC) ? DESC : ASC);
+	}    
 
 <body> 
 	<table class='table'>
