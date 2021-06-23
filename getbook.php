@@ -6,7 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 	<?
-		$columsName = array('Название книги','Автор','Тип книги','Научность', 'Красивость обложки', 'Запрещенность в России');
+		$columsName = array('Название книги','Автор','Тип книги','Научность', 'Красивость обложки', 'Запрещенность в России', 'Фотка');
 		$symbol = array("🠑","", "🠓");
 		$file = file("book.txt");
 		setlocale(LC_ALL, 'ru_RU.UTF-8');
@@ -19,6 +19,7 @@
 	  		$everything[$key][3] = $splitLines[$key][3];
 	  		$everything[$key][4] = $splitLines[$key][4];
 	  		$everything[$key][5] = $splitLines[$key][5];
+	  		$everything[$key][6] = $splitLines[$key][6];
 
 	  		$colums[0][$key] = $splitLines[$key][0];
 	  		$colums[1][$key] = $splitLines[$key][1];
@@ -37,12 +38,12 @@
 			$sorting = 0;
 		else
 			$sorting++;
-	?>
+	
 
-if(isset($_GET['sort'])){
-		$nextSort = (($_GET['sort'] == ASC) ? DESC : ASC);
-	}    
-
+		if(isset($_GET['sort'])){
+				$nextSort = (($_GET['sort'] == ASC) ? DESC : ASC);
+			}    
+?>
 <body> 
 	<table class='table'>
 		<thead id="tHead">
@@ -70,7 +71,10 @@ if(isset($_GET['sort'])){
 		<?
 			foreach ($everything as $line) {
 				echo "<tr>";
-				foreach ($line as $line_split_values) {
+				foreach ($line as $key => $line_split_values) {
+					if ($key == 6)
+						echo "<td><img src='/img/$line_split_values' height='150px'></td>";
+					else
 						echo "<td>".$line_split_values."</td>";
 				}
 				echo "</tr>";
