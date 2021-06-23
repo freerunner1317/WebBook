@@ -23,19 +23,26 @@
 
 			if(isset($_FILES['img'])) {
 		    	$file = $_FILES['img'];
+		    	
 
-				$name = mt_rand(0, 10000) . $file['name'];
-				copy($file['tmp_name'], 'img/' . $name);
+		    	$getMime = explode('.', $file['name']);
+		    	$mime = strtolower(end($getMime));
+		    	
+
+				$name = (string)substr(md5(rand()), 0, 10);
+				copy($file['tmp_name'], 'img/' . $name .'.'.$mime);
+
 
 		    }
 			
 			$fd = fopen("book.txt", 'a') or die("не удалось создать файл");
-			$str = "$nameBook,$nameAuthor,$bookType,$science,$look,$forbidden,$name\n";
+			$str = "$nameBook,$nameAuthor,$bookType,$science,$look,$forbidden,$name.$mime\n";
 			fwrite($fd, $str);
 			fclose($fd);
 		}	
     
-   	
+   		$generateName = (string)substr(md5(rand()), 0, 10);
+				echo $generateName;
 
 	?>
 
